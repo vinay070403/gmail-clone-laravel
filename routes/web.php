@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inbox', fn() => view('inbox'))->name('inbox');
     Route::get('/sent', fn() => view('sent'))->name('sent');
     Route::get('/favorites', fn() => view('favorites'))->name('favorites');
-    Route::get('/trash', fn() => view('trash'))->name('trash');
+
     Route::get('/compose', fn() => view('compose'))->name('compose');
 
     Route::get('/compose', [MailController::class, 'create'])->name('compose');
@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inbox', [MailController::class, 'inbox'])->name('inbox');
     Route::get('/sent', [MailController::class, 'sent'])->name('sent');
     Route::get('/favorites', [MailController::class, 'favorites'])->name('favorites');
-    Route::get('/tarsh', [MailController::class, 'trash'])->name('trash');
+    Route::get('/t', [MailController::class, 'trash'])->name('trash');
     Route::post('/mail/{id}/favorite', [MailController::class, 'toggleFavorite'])->name('mail.favorite');
     Route::delete('/mail/{mail}', [MailController::class, 'destroy'])->name('mail.delete');          // move to Trash (soft delete)
     Route::patch('/mail/{mail}/restore', [MailController::class, 'restore'])->name('mail.restore');  // restore from Trash
