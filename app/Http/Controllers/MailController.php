@@ -104,15 +104,6 @@ class MailController extends Controller
                 'updated_at'  => $now,
             ],
             [
-                'user_id'     => Auth::id(),
-                'mail_id'     => $mail->id,
-                'folder'      => 'inbox',  // sender ka inbox bhi
-                'is_favorite' => false,
-                'is_deleted'  => false,
-                'created_at'  => $now,
-                'updated_at'  => $now,
-            ],
-            [
                 'user_id'     => $receiver->id,
                 'mail_id'     => $mail->id,
                 'folder'      => 'inbox',  // receiver ka inbox
