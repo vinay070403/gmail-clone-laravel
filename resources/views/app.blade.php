@@ -132,11 +132,11 @@
     </div>
 
     <div class="sidebar">
+        <a href="{{ route('compose') }}">Compose</a>
         <a href="{{ route('inbox') }}">Inbox</a>
         <a href="{{ route('sent') }}">Sent</a>
         <a href="{{ route('favorites') }}">Favorites</a>
         <a href="{{ route('trash') }}">Trash</a>
-        <a href="{{ route('compose') }}">Compose</a>
     </div>
 
     <div class="content">
