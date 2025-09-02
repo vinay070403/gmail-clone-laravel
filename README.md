@@ -52,4 +52,36 @@ This project is **not just a clone**, but a **demonstration of advanced Laravel 
 ---
 
 ## 📂 Project Structure
+```
+gmail-replica/
+├─ app/
+│ ├─ Http/
+│ │ ├─ Controllers/
+│ │ └─ Requests/
+│ ├─ Models/
+├─ database/
+│ ├─ migrations/
+│ └─ seeders/
+├─ resources/
+│ ├─ views/
+│ │ ├─ inbox/
+│ │ ├─ layouts/
+│ │ └─ components/
+│ └─ css/
+├─ routes/
+│ └─ web.php
+├─ public/
+├─ composer.json
+└─ README.md
+```
+
+---
+
+## ⚡ Installation & Setup
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/yourusername/laravel-gmail-replica.git
+cd laravel-gmail-replica
 
