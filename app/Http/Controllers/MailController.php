@@ -21,8 +21,13 @@ class MailController extends Controller
             ->select('mails.*', 'mail_user.is_favorite', 'mail_user.is_deleted', 'mail_user.folder')
             ->get();
 
+        dd($mails);
+
+
         return view('inbox', compact('mails'));
     }
+
+
 
     // Sent mails
     public function sent()
@@ -34,6 +39,10 @@ class MailController extends Controller
             ->orderBy('mails.created_at', 'desc')
             ->select('mails.*', 'mail_user.is_favorite', 'mail_user.is_deleted', 'mail_user.folder')
             ->get();
+
+
+
+
 
         return view('sent', compact('mails'));
     }
@@ -61,6 +70,9 @@ class MailController extends Controller
             ->orderBy('mails.created_at', 'desc')
             ->select('mails.*', 'mail_user.is_favorite', 'mail_user.is_deleted', 'mail_user.folder')
             ->get();
+
+        dd($mails->toSql(), $mails->getBindings()); // shows raw SQL + bindings
+
 
         return view('trash', compact('mails'));
     }
@@ -139,23 +151,23 @@ class MailController extends Controller
 
     // Move to trash
     public function destroy($id)
-{
-    $pivot = DB::table('mail_user')
-        ->where('user_id', Auth::id())
-        ->where('mail_id', $id)
-        ->where('folder', 'inbox')   // <-- only inbox copy
-        ->first();
+    {
+        $pivot = DB::table('mail_user')
+            ->where('user_id', Auth::id())
+            ->where('mail_id', $id)
+            ->where('folder', 'inbox')   // <-- only inbox copy
+            ->first();
 
-    if (! $pivot) abort(403);
+        if (! $pivot) abort(403);
 
-    DB::table('mail_user')
-        ->where('user_id', Auth::id())
-        ->where('mail_id', $id)
-        ->where('folder', 'inbox')
-        ->update(['is_deleted' => true, 'updated_at' => now()]);
+        DB::table('mail_user')
+            ->where('user_id', Auth::id())
+            ->where('mail_id', $id)
+            ->where('folder', 'inbox')
+            ->update(['is_deleted' => true, 'updated_at' => now()]);
 
-    return back()->with('success', 'Moved to Trash.');
-}
+        return back()->with('success', 'Moved to Trash.');
+    }
 
     // Restore from trash
     public function restore($id)
