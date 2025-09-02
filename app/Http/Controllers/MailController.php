@@ -139,21 +139,23 @@ class MailController extends Controller
 
     // Move to trash
     public function destroy($id)
-    {
-        $pivot = DB::table('mail_user')
-            ->where('user_id', Auth::id())
-            ->where('mail_id', $id)
-            ->first();
+{
+    $pivot = DB::table('mail_user')
+        ->where('user_id', Auth::id())
+        ->where('mail_id', $id)
+        ->where('folder', 'inbox')   // <-- only inbox copy
+        ->first();
 
-        if (! $pivot) abort(403);
+    if (! $pivot) abort(403);
 
-        DB::table('mail_user')
-            ->where('user_id', Auth::id())
-            ->where('mail_id', $id)
-            ->update(['is_deleted' => true, 'updated_at' => now()]);
+    DB::table('mail_user')
+        ->where('user_id', Auth::id())
+        ->where('mail_id', $id)
+        ->where('folder', 'inbox')
+        ->update(['is_deleted' => true, 'updated_at' => now()]);
 
-        return back()->with('success', 'Moved to Trash.');
-    }
+    return back()->with('success', 'Moved to Trash.');
+}
 
     // Restore from trash
     public function restore($id)
